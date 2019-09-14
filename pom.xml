@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.zsf</groupId>
-  <artifactId>scala.demo</artifactId>
+  <artifactId>scala-spark</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>scala.demo</name>
+  <name>scala-spark</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
