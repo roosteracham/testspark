@@ -1,0 +1,2 @@
+# 遇到找不到classNoeFoundException scala.Clonable, 但是spark依赖里面包含了scala.lib，idea里也包含了scala.lib。
+spark中的scala.lib版本是2.12.8，本地版本是2.13.0，然后把scala版本由2.13.0更换成了2.12.8莫名好了。
