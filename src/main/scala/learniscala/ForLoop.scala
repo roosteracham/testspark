@@ -1,0 +1,5 @@
+package learniscala
+
+object ForLoop {
+
+}
