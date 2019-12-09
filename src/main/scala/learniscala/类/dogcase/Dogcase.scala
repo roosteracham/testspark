@@ -1,10 +1,16 @@
-package learniscala.类
+package learniscala.类.dogcase
 
-class Dogcase {
-  val name: String = _
-  val age : Int = _
-  val weight: Double = _
+class Dogcase(iname: String) {
+  var name: String = iname
+  var age : Int = _
+  var weight: Double = _
 
+//  this(name: String, age: Int, weight: Double) {
+//    this(name)
+//    this.name = name
+//    this.age = age
+//    this.weight = weight
+//  }
   def say() : String = {
     toString
   }
