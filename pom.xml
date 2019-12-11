@@ -55,12 +55,41 @@
       <!--<artifactId>scala-library</artifactId>-->
       <!--<version>2.13.0</version>-->
     <!--</dependency>-->
+    <!-- https://mvnrepository.com/artifact/org.apache.avro/avro -->
+    <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro</artifactId>
+      <version>1.8.2</version>
+    </dependency>
 
   </dependencies>
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+        <!-- avro -->
+        <!--<plugin>-->
+          <!--<groupId>org.apache.avro</groupId>-->
+          <!--<artifactId>avro</artifactId>-->
+          <!--<version>1.8.2</version>-->
+          <!--<executions>-->
+            <!--<execution>-->
+              <!--<id>schemas</id>-->
+              <!--<phase>generate-sources</phase>-->
+              <!--<goals>-->
+                <!--<goal>schema</goal>-->
+              <!--</goals>-->
+              <!--<configuration>-->
+                <!--<includes>-->
+                  <!--<include>StringPair.avsc</include>-->
+                <!--</includes>-->
+                <!--<StringType>String</StringType>-->
+                <!--<sourceDirectory>src/main/resources</sourceDirectory>-->
+                <!--<outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>-->
+              <!--</configuration>-->
+            <!--</execution>-->
+          <!--</executions>-->
+        <!--</plugin>-->
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>

@@ -1,0 +1,9 @@
+{
+"type" : "record",
+"name" : "StringPair",
+"doc" : "first record",
+"field" : [
+{"name" : "left", "type" : "String"},
+{"name" : "right", "type" : "String"}
+]
+}
