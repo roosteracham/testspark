@@ -1,6 +1,7 @@
 package hadoop.arvo;
 
-import javax.xml.soap.Text;
+import org.apache.hadoop.io.Text;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,5 +89,4 @@ public class NcdcRecordParser {
     public String getQuality() {
         return quality;
     }
-
 }
