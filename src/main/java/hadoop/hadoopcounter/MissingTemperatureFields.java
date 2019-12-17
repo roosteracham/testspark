@@ -28,7 +28,7 @@ public class MissingTemperatureFields extends Configured implements Tool {
         long missing = counters.findCounter(MaxTemWithCounter.Temperature.MISSING).getValue();
         long total = counters.findCounter(TaskCounter.MAP_INPUT_RECORDS).getValue();
 
-        System.out.println("missing fields: %.2f%%\n", 100.0 * missing / total);
+        System.out.printf("missing fields: %.2f%%\n", (float)100.0 * missing / total);
         return 0;
     }
 
