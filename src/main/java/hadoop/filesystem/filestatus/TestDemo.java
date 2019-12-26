@@ -1,10 +1,7 @@
 package hadoop.filesystem.filestatus;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.FileUtil;
-import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -20,6 +17,13 @@ public class TestDemo {
         String uri = "";
         Configuration configuration = new Configuration();
         FileSystem fileSystem = FileSystem.get(URI.create(uri), configuration);
+//        listFile(args, fileSystem);
+
+        Path pattern= new Path("/2007/*/*");
+        fileSystem.globStatus(pattern, new TestDemo.RegexExcludePathFilter("^.*/2007/12/31$"));
+    }
+
+    private static void listFile(String[] args, FileSystem fileSystem) throws IOException {
         Path[] path = new Path[args.length];
         for (int i = 0; i < args.length; i++) {
             path[i] = new Path(args[i]);
@@ -30,4 +34,17 @@ public class TestDemo {
         Arrays.stream(paths).forEach(System.out::println);
     }
 
+    static class RegexExcludePathFilter implements PathFilter {
+
+        private final String regex;
+
+        public RegexExcludePathFilter(String regex) {
+            this.regex = regex;
+        }
+
+        @Override
+        public boolean accept(Path path) {
+            return !path.toString().matches(regex);
+        }
+    }
 }
