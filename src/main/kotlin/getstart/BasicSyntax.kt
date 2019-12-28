@@ -1,6 +1,6 @@
 package getstart
 
-class BasicSyntax {
+class BasicSyntax(val name : String =  "abc", var age : Int) {
     fun main() {
         print("Hello World")
     }
@@ -14,6 +14,11 @@ class BasicSyntax {
                 !is String -> "not a string"
                 else -> "unknown"
             }
+    fun descObject() : String {
+        return "name: " + name
+    }
 
-
+    override fun toString(): String {
+        return "name: " + name + ", age: " + age
+    }
 }

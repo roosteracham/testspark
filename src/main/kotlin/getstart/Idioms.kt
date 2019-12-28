@@ -8,6 +8,24 @@ object Idioms {
                 .map { it.toUpperCase() }
                 .forEach { println(it) }
 
-        println(BasicSyntax().decribe(1))
+        println(BasicSyntax(age = 2).decribe(1))
+        println(BasicSyntax(age = 3).toString())
+
+        val value = "abc"
+        val val2 by lazy { "lazy" }
+        value.length?.let { print(val2.length) }
+
+        listOf(1,2,3,4,5).forEach{
+            if (it == 3) {
+                return@forEach
+            }
+            println(it)
+        }
+        print("ret loop")
+    }
+
+    fun testRet(): Int? {
+        val a : String = ""
+        return a?.length?:"abc".length
     }
 }
