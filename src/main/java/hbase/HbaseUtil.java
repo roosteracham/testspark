@@ -13,13 +13,14 @@ public class HbaseUtil {
 
     private static Connection connection;
     private static Configuration configuration;
-
+    private static HTablePool pool;
     static {
         configuration = HBaseConfiguration.create();
         configuration.set("hbase.zookeeper.quorum", "had1");
         try {
             connection = ConnectionFactory.createConnection(configuration);
             hBaseAdmin = connection.getAdmin();
+            pool = new HTablePool(configuration, 5);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,15 +104,27 @@ public class HbaseUtil {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    // 放入数据
+    public static void putData() throws IOException {
+        HTableInterface table = pool.getTable("t1");
+        Put put = new Put("TheReslMT".getBytes());
+        put.addColumn("c1".getBytes(), "name".getBytes(), "Mark Twain".getBytes());
+        put.addColumn("c1".getBytes(), "email".getBytes(), "samuel@clemens.org".getBytes());
+        put.addColumn("c1".getBytes(), "pwd".getBytes(), "LangHorne".getBytes());
+        table.put(put);
+        table.close();
+    }
+
+    public static void main(String[] args) throws Exception {
 //        System.out.println(tableExists("bd","t2"));
 //        createTable("bd","t2",new String[]{"c1"});
 //        System.out.println(tableExists("bd","t2"));
 //
 //        dropTable("t2");
 //        putData("bd:t2", "r0002", "c1", "sex", "male");
-        getData("bd:t2", "r0002", "c1", "name", 0);
+//        getData("bd:t2", "r0002", "c1", "name", 0);
 //        scanTable("t1");
-        close(connection);
+//        close(connection);
+        putData();
     }
 }
