@@ -6,6 +6,7 @@ import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class HbaseUtil {
 
@@ -13,14 +14,12 @@ public class HbaseUtil {
 
     private static Connection connection;
     private static Configuration configuration;
-    private static HTablePool pool;
     static {
         configuration = HBaseConfiguration.create();
         configuration.set("hbase.zookeeper.quorum", "had1");
         try {
             connection = ConnectionFactory.createConnection(configuration);
             hBaseAdmin = connection.getAdmin();
-            pool = new HTablePool(configuration, 5);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,12 +104,13 @@ public class HbaseUtil {
     }
 
     // 放入数据
-    public static void putData() throws IOException {
-        HTableInterface table = pool.getTable("t1");
+    public static void putData(boolean writeToWAL) throws IOException {
+        Table table = connection.getTable(TableName.valueOf("t1"));
         Put put = new Put("TheReslMT".getBytes());
         put.addColumn("c1".getBytes(), "name".getBytes(), "Mark Twain".getBytes());
         put.addColumn("c1".getBytes(), "email".getBytes(), "samuel@clemens.org".getBytes());
         put.addColumn("c1".getBytes(), "pwd".getBytes(), "LangHorne".getBytes());
+        put.setWriteToWAL(writeToWAL);
         table.put(put);
         table.close();
     }
@@ -125,6 +125,26 @@ public class HbaseUtil {
 //        getData("bd:t2", "r0002", "c1", "name", 0);
 //        scanTable("t1");
 //        close(connection);
-        putData();
+//        putData(true);
+        getDataByRowKey("TheReslMT");
+    }
+
+    static void getDataByRowKey(String rowkey) throws IOException {
+        Table table = connection.getTable(TableName.valueOf("t1"));
+        Get get = new Get(rowkey.getBytes());
+        Result result = table.get(get);
+        Cell[] cells = result.rawCells();
+        Arrays.stream(cells).forEach(cell -> System.out.println("family: " + Bytes.toString(CellUtil.cloneFamily(cell)) +
+                            "qualifier: " + Bytes.toString(CellUtil.cloneQualifier(cell)) +
+                            "value: " + Bytes.toString(CellUtil.cloneValue(cell))));
+    }
+
+    static void getDataByQualifier(String rowkey, String family, String qualifier) throws IOException {
+        Table table = connection.getTable(TableName.valueOf("t1"));
+        Get get = new Get(rowkey.getBytes());
+        get.addColumn(Bytes.toBytes(family), qualifier.getBytes());
+        Result result = table.get(get);
+        byte[] value = result.getValue(family.getBytes(), qualifier.getBytes());
+        System.out.println(Bytes.toString(value));
     }
 }
