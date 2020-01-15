@@ -10,9 +10,13 @@ import java.util.Arrays;
 
 public class HbaseUtil {
 
+    // 执行表的操作
     private static Admin hBaseAdmin;
 
+    // 获得与hbase的连接
     private static Connection connection;
+
+    // 配置
     private static Configuration configuration;
     static {
         configuration = HBaseConfiguration.create();
@@ -126,7 +130,9 @@ public class HbaseUtil {
 //        scanTable("t1");
 //        close(connection);
 //        putData(true);
-        getDataByRowKey("TheReslMT");
+//        getDataByRowKey("TheReslMT");
+
+        scanAllTable("t1");
     }
 
     static void getDataByRowKey(String rowkey) throws IOException {
@@ -146,5 +152,32 @@ public class HbaseUtil {
         Result result = table.get(get);
         byte[] value = result.getValue(family.getBytes(), qualifier.getBytes());
         System.out.println(Bytes.toString(value));
+    }
+
+    static void scanAllTable(String tableName) throws IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Scan scan = new Scan();
+        // 每次扫描表返回的行数， 默认是1
+        scan.addColumn("c1".getBytes(), "email".getBytes());
+        scan.setCaching(50);
+        ResultScanner results = table.getScanner(scan);
+        for (Result result : results) {
+            System.out.println(("rowKey: " + Bytes.toString(result.getRow())));
+            Cell[] cells = result.rawCells();
+            for (Cell cell : cells) {
+                System.out.println("rowKey: " + Bytes.toString(CellUtil.cloneRow(cell)) +
+                        ", family: " + Bytes.toString(CellUtil.cloneFamily(cell)) +
+                        ", qualifier: " + Bytes.toString(CellUtil.cloneQualifier(cell)) +
+                        ", qualifier: " + Bytes.toString(CellUtil.cloneValue(cell)));
+            }
+        }
+    }
+
+    static void creaetTable() throws IOException {
+        HTableDescriptor twits = new HTableDescriptor("twits");
+        HColumnDescriptor columnDescriptor = new HColumnDescriptor("twits");
+        columnDescriptor.setMaxVersions(1);
+        twits.addFamily(columnDescriptor);
+        hBaseAdmin.createTable(twits);
     }
 }
