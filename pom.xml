@@ -20,6 +20,15 @@
   </properties>
 
   <dependencies>
+      <!-- https://mvnrepository.com/artifact/org.jmockit/jmockit -->
+      <dependency>
+          <groupId>org.jmockit</groupId>
+          <artifactId>jmockit</artifactId>
+          <version>1.48</version>
+
+      </dependency>
+
+
       <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-minicluster -->
       <dependency>
           <groupId>org.apache.hadoop</groupId>
