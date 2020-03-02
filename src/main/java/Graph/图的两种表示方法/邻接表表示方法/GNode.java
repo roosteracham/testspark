@@ -3,6 +3,8 @@ package Graph.图的两种表示方法.邻接表表示方法;
 import Graph.图的两种表示方法.邻接矩阵表示.Edge;
 import Graph.图的两种表示方法.邻接矩阵表示.GraphNode;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -44,7 +46,11 @@ public class GNode {
     }
 
     // 构建图
-    public void buildGraph() {
+    public void buildGraph(boolean bfs) {
+
+        if (bfs) {
+            stack = new LinkedList<>();
+        }
 
         // 创建只有顶点的图
         createGraph(8);
@@ -95,8 +101,19 @@ public class GNode {
         }
     }
 
+    public List<Integer> stack;
     // 广度优先搜索
     public void bfs(int v) {
-
+        // 访问v这个顶点
+        visit(v);
+        for (AdjNode node = g[v].firstEdge; node != null; node = node.next) {
+            stack.add(node.vi);
+        }
+        while (!stack.isEmpty()) {
+            Integer vi = stack.remove(0);
+            if (!g[vi].visited) {
+                bfs(vi);
+            }
+        }
     }
 }
