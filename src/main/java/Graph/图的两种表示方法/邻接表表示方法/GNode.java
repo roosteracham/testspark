@@ -28,47 +28,75 @@ public class GNode {
     // 插入边
     public void insert(Edge edge) {
 
-        // 插入<v1，v2>
-        AdjNode node1 = new AdjNode();
-        node1.vi = edge.v2;
-        node1.weight = edge.weight;
-        node1.next = this.g[edge.v1].firstEdge;
-        this.g[edge.v1].firstEdge = node1;
-
         // 若是无向图还要插入<v2,v1>
         AdjNode node2 = new AdjNode();
         node2.vi = edge.v1;
         node2.weight = edge.weight;
         node2.next = this.g[edge.v2].firstEdge;
         this.g[edge.v2].firstEdge = node2;
+
+        // 插入<v1，v2>
+        AdjNode node1 = new AdjNode();
+        node1.vi = edge.v2;
+        node1.weight = edge.weight;
+        node1.next = this.g[edge.v1].firstEdge;
+        this.g[edge.v1].firstEdge = node1;
     }
 
     // 构建图
     public void buildGraph() {
 
         // 创建只有顶点的图
-        createGraph(4);
+        createGraph(8);
 
         Scanner scanner = new Scanner(System.in);
         Edge edge = new Edge();
         // 插入3条边
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 9; i++) {
             int v1 = scanner.nextInt();
             int v2 = scanner.nextInt();
-            int weight = scanner.nextInt();
+//            int weight = scanner.nextInt();
             edge.v1 = v1;
             edge.v2 = v2;
-            edge.weight = weight;
+//            edge.weight = weight;
             insert(edge);
         }
 
-        for (int i = 0; i < 4; i++) {
-            int a = scanner.nextInt();
-            int b = scanner.nextInt();
-            GraphNode node = new GraphNode();
-            node.a = a;
-            node.b = b;
-            g[i].data = node;
+//        for (int i = 0; i < 4; i++) {
+//            int a = scanner.nextInt();
+//            int b = scanner.nextInt();
+//            GraphNode node = new GraphNode();
+//            node.a = a;
+//            node.b = b;
+//            g[i].data = node;
+//        }
+    }
+
+    // visit
+    public void visit(int v) {
+        g[v].visited = true;
+        System.out.println("visiting node: " + v + ", data: " + g[v].data);
+    }
+
+    // 深度优先遍历
+    // 适用于邻接表存储的图，时间复杂度为O(V + E)
+    public void dfs(int v) {
+        // 先访问节点
+        visit(v);
+
+        AdjNode node = g[v].firstEdge;
+
+        // 递归访问，从下一个临界点作为顶点开始访问
+        for (; node != null; node = node.next) {
+            VNode nextAdjNode = g[node.vi];
+            if (!nextAdjNode.visited) {
+                dfs(node.vi);
+            }
         }
+    }
+
+    // 广度优先搜索
+    public void bfs(int v) {
+
     }
 }

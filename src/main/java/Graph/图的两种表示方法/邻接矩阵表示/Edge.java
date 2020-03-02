@@ -6,5 +6,5 @@ public class Edge {
 
     public int v2;
 
-    public int weight;
+    public int weight = 1;
 }
