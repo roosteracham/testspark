@@ -6,5 +6,5 @@ public class Edge {
 
     public int v2;
 
-    public int weight = 1;
+    public int weight = Integer.MAX_VALUE;
 }

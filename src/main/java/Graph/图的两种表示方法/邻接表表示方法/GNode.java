@@ -46,14 +46,14 @@ public class GNode {
     }
 
     // 构建图
-    public void buildGraph(boolean bfs) {
+    public void buildGraph(int v, boolean bfs) {
 
         if (bfs) {
             stack = new LinkedList<>();
         }
 
         // 创建只有顶点的图
-        createGraph(8);
+        createGraph(v);
 
         Scanner scanner = new Scanner(System.in);
         Edge edge = new Edge();

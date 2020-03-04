@@ -8,7 +8,7 @@ public class Test {
     static void testDFS() {
         GNode gNode = new GNode();
 //        gNode.createGraph(4);
-        gNode.buildGraph(true);
+        gNode.buildGraph(8, true);
         gNode.bfs(0);
     }
 }
