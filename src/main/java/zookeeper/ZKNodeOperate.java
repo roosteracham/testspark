@@ -11,11 +11,21 @@ import java.util.List;
 
 public class ZKNodeOperate extends Test{
     public static void main(String[] args) throws Exception {
-        getAllChildren();
+        deleteZNode();
     }
-    static String connString = "had1:2181/zk-book";
-    static int timeout = 5000;
-    static Watcher watcher = new ZKNodeOperate();
+
+    //删除节点
+    public static void deleteZNode() throws Exception {
+        ZooKeeper zooKeeper = getConn();
+        zooKeeper.addAuthInfo("digest", "foo:true".getBytes());
+        zooKeeper.create("/auth-test", "123".getBytes(), ZooDefs.Ids.CREATOR_ALL_ACL, CreateMode.PERSISTENT);
+        ZooKeeper conn = getConn();
+        Thread.sleep(10000);
+        conn.delete("/auth-test", -1);
+        Thread.sleep(10000);
+
+    }
+
 
     // 创建节点
     public static void testCreate() throws Exception {
