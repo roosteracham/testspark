@@ -11,7 +11,7 @@ object Test {
 //    test1(sc)
 
 //    testParalleize(sc)
-  testTop(sc)
+    testParalleize(sc)
   }
 
   private def test1(sc: SparkContext) = {
