@@ -14,6 +14,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.List;
+import java.util.Map;
 
 public class User implements Externalizable {
     public static final long serializationVersionID = 1L;
@@ -22,6 +24,7 @@ public class User implements Externalizable {
     private Integer age;
     private String country = "ZG";
     private String state = "HN";
+    private List<Integer> stateList;
 
     public String getName() {
         return name;
@@ -64,6 +67,25 @@ public class User implements Externalizable {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", salary=" + salary +
+                ", age=" + age +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
+
+    public void setState(Map<Integer, Integer> state) {
+        this.state = "state";
+    }
+
+    public void setState(List<Integer> state) {
+        this.name = "stateList";
     }
 
     public User(String name, Double salary, Integer age) {
