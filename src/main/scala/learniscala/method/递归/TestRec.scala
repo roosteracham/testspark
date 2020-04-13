@@ -33,4 +33,5 @@ object TestRec {
   // 任何时候都应该显示指定方法返回值，不能只依赖Scala的类型推断
   println(testUnit(2))
   println(testUnit2(2))
+  
 }
