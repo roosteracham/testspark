@@ -19,6 +19,7 @@ public class Test implements ConsumerRebalanceListener {
 
     public static KafkaConsumer<String, String> getConsumer() {
         Properties properties = new Properties();
+        // 这里配置的zookeeper，一台十小时，还可以连接另一台
         properties.put("bootstrap.server", "had1:9092,had2:9092");
         properties.put("key.deserializer", "");
         properties.put("value.deserializer", "");
@@ -29,6 +30,19 @@ public class Test implements ConsumerRebalanceListener {
 
     public static void consumer() {
         KafkaConsumer<String, String> consumer = getConsumer();
+        Thread mainThread = Thread.currentThread();
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                consumer.wakeup();
+                try {
+                    mainThread.join();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         consumer.subscribe(Collections.singleton("jituiniunan"));
         try {
             while (true) {
