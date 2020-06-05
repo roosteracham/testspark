@@ -25,12 +25,15 @@ public class StreamTest {
             return l;
         };
 
-        Map<Integer, List<Integer>> collect = users.stream().collect(Collectors.groupingBy(User::getAge, Collectors.mapping(User::getStateList, Collector.of(
+        Collector<List<Integer>, List<Integer>, List<Integer>> collector = Collector.of(
                 Lists::newArrayList,
                 accumulator,
                 combiner,
-                Collector.Characteristics.UNORDERED
-        ))));
+                Collector.Characteristics.CONCURRENT
+        );
+
+        Collector<User, ?, List<Integer>> mapping = Collectors.mapping(User::getStateList, collector);
+        Map<Integer, List<Integer>> collect = users.stream().collect(Collectors.groupingBy(User::getAge, mapping));
         System.out.println(collect);
     }
 }
