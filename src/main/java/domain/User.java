@@ -23,8 +23,22 @@ public class User implements Externalizable {
     private Double salary;
     private Integer age;
     private String country = "ZG";
+
+    public List<Integer> getStateList() {
+        return stateList;
+    }
+
+    public void setStateList(List<Integer> stateList) {
+        this.stateList = stateList;
+    }
+
     private String state = "HN";
     private List<Integer> stateList;
+
+    public User(List<Integer> stateList, Integer age) {
+        this.stateList = stateList;
+        this.age = age;
+    }
 
     public String getName() {
         return name;
