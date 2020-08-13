@@ -2,7 +2,7 @@ package 刷题;
 
 import java.lang.reflect.Array;
 
-public class MinHeap<T extends Comparable> {
+public class MaxHeap<T extends Comparable> {
     T[] elements;
     int adjustTime;
     int capacity;
@@ -33,7 +33,7 @@ public class MinHeap<T extends Comparable> {
             return;
         }
         int parentIndex = size / 2;
-        if (elements[parentIndex].compareTo(elements[size]) <= 0) {
+        if (elements[parentIndex].compareTo(elements[size]) >= 0) {
             return;
         }
         T tmp = elements[parentIndex];
@@ -44,8 +44,8 @@ public class MinHeap<T extends Comparable> {
     }
 
     public static void main(String[] args) {
-        MinHeap<Integer> minHeap = new MinHeap<>();
-        minHeap.initHeap(1, Integer.class);
+        MaxHeap<Integer> minHeap = new MaxHeap<>();
+        minHeap.initHeap(2, Integer.class);
         minHeap.addElement(3);
         minHeap.addElement(1);
         minHeap.addElement(2);

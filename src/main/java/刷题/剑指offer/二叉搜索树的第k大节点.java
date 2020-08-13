@@ -1,14 +1,11 @@
 package 刷题.剑指offer;
 
-import org.apache.spark.sql.sources.In;
 import 刷题.MinHeap;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
-import java.util.TreeSet;
 
 /**
  * 给定一棵二叉搜索树，请找出其中第k大的节点。
@@ -47,37 +44,25 @@ import java.util.TreeSet;
  */
 public class 二叉搜索树的第k大节点 {
 
-    TreeSet<Integer> list;
+    List<Integer> list;
     int k;
     public int kthLargest(TreeNode root, int k) {
-        list = new TreeSet<>();
+        list = new ArrayList<>();
         this.k = k;
         handle(root);
-        return list.first();
+        return list.get(k - 1);
     }
 
     private void handle(TreeNode root) {
-        if (root == null) {
+        if (root == null && list.size() == k) {
             return;
         }
         if (root.right != null) {
             handle(root.right);
         }
-        if (list.size() == k) {
-            return;
-        }
         list.add(root.val);
         if (root.left != null) {
             handle(root.left);
         }
-    }
-
-    public static void main(String[] args) {
-        TreeSet<Integer> treeSet = new TreeSet<>();
-        treeSet.add(3);
-        treeSet.add(2);
-        System.out.println(treeSet.last());
-        System.out.println(treeSet.pollFirst());
-
     }
 }
