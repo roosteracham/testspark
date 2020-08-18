@@ -43,6 +43,14 @@ public class MaxHeap<T extends Comparable> {
         adjustHeap(parentIndex);
     }
 
+    public T pop() {
+        T res = elements[1];
+        elements[1] = elements[size];
+        size--;
+        adjustHeap(size);
+        return res;
+    }
+
     public static void main(String[] args) {
         MaxHeap<Integer> minHeap = new MaxHeap<>();
         minHeap.initHeap(2, Integer.class);
