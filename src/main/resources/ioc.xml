@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans>
+    <bean id="xm" class="spring.ioc.custom.domain.Student" scope="singleton">
+        <property name="name" value="小明"/>
+        <property name="age" value="12"/>
+    </bean>
+    <bean id="cls" class="spring.ioc.custom.domain.Teacher">
+        <property name="name" value="陈老师"/>
+        <property name="student" ref="xm"/>
+    </bean>
+</beans>
