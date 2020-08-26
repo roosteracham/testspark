@@ -37,7 +37,7 @@ public class UserServiceImpl implements IUserService {
         UserServiceImpl bean = context.getBean("userServiceImpl", UserServiceImpl.class);
 //        User user = new User(1, "root", "male", 10);
 //        bean.save(user);
-
-        System.out.println(bean.getUsers());
+//        User user = bean.jdbcTemplate.queryForObject("select user from user limit 1", User.class);
+//        System.out.println(bean.getUsers());
     }
 }

@@ -35,22 +35,22 @@ import java.util.List;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class _59_滑动窗口的最大值 {
-    public int[] maxSlidingWindow(int[] nums, int k) {
-
-        int[] res = new int[nums.length - k + 1];
-        List<Integer> list = new LinkedList<>();
-        for (int i = 0; i < k; i++) {
-            list.add(nums[i]);
-        }
-
-        for (int i = 0; i < nums.length - k; i++) {
-            res[i] = maxHeap.pop();
-            maxHeap.addElement(nums[i + k]);
-        }
-        return res;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new _59_滑动窗口的最大值().maxSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3));
-    }
+//    public int[] maxSlidingWindow(int[] nums, int k) {
+//
+//        int[] res = new int[nums.length - k + 1];
+//        List<Integer> list = new LinkedList<>();
+//        for (int i = 0; i < k; i++) {
+//            list.add(nums[i]);
+//        }
+//
+//        for (int i = 0; i < nums.length - k; i++) {
+//            res[i] = maxHeap.pop();
+//            maxHeap.addElement(nums[i + k]);
+//        }
+//        return res;
+//    }
+//
+//    public static void main(String[] args) {
+//        System.out.println(new _59_滑动窗口的最大值().maxSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3));
+//    }
 }
