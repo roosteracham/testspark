@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class DatePropertyEditor extends PropertyEditorSupport {
-    private String format;
+    private String format = "yyyy-MM-dd";
 
     public void setFormat(String format) {
         this.format = format;

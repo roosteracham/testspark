@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:component-scan base-package="spring" />
+
+    <import resource="spring-dao.xml" />
     <bean id="user" class="spring.自定义属性编辑器.UserManager">
         <property name="date" >
             <value>2020-12-12</value>
@@ -11,10 +17,7 @@
     <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer" >
         <property name="customEditors">
             <map>
-                <entry key="java.util.Date">
-                    <bean class="spring.自定义属性编辑器.DatePropertyEditor">
-                        <property name="format" value="yyyy-MM-dd"></property>
-                    </bean>
+                <entry key="java.util.Date" value="spring.自定义属性编辑器.DatePropertyEditor">
                 </entry>
             </map>
         </property>
