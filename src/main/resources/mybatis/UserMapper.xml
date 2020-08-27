@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.UserMapper">
+    <resultMap id="BaseResultMap" type="spring.jdbc.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="age" jdbcType="INTEGER" property="age"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, age, name, sex
+    </sql>
+    <select id="getUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="spring.jdbc.User">
+    insert into user (age, name, sex
+      )
+    values (#{age,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}
+      )
+  </insert>
+</mapper>
