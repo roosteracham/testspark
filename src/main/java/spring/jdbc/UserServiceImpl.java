@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.Types;
 import java.util.List;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
 public class UserServiceImpl implements IUserService {
 
     private JdbcTemplate jdbcTemplate;
@@ -24,6 +27,7 @@ public class UserServiceImpl implements IUserService {
         jdbcTemplate.update("insert into user (name, age, sex) value (?, ?, ?)",
                 new Object[]{user.getName(), user.getAge(), user.getSex()},
                 new int[]{Types.VARCHAR, Types.INTEGER, Types.VARCHAR});
+        throw new RuntimeException();
     }
 
     @Override
@@ -34,9 +38,9 @@ public class UserServiceImpl implements IUserService {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring" +
                 ".xml");
-        UserServiceImpl bean = context.getBean("userServiceImpl", UserServiceImpl.class);
-//        User user = new User(1, "root", "male", 10);
-//        bean.save(user);
+        IUserService bean = context.getBean("userServiceImpl", IUserService.class);
+        User user = new User(1, "root", "male", 11);
+        bean.save(user);
 //        User user = bean.jdbcTemplate.queryForObject("select user from user limit 1", User.class);
 //        System.out.println(bean.getUsers());
     }
