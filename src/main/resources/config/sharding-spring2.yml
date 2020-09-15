@@ -1,0 +1,15 @@
+dataSources:
+  spring2:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring2
+    username: root
+    password: root123
+
+shardingRule:
+  tables:
+    a:
+      actualDataNodess: spring2.a_$->{0..1}
+      tableStrategy:
+        inline:
+          shardingColumn: a
+          algorithmExpression: a_${a % 2}
