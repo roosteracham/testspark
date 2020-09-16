@@ -1,8 +1,13 @@
 package spring.jdbc.sharding;
 
 import org.apache.shardingsphere.api.hint.HintManager;
+import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
+import org.apache.shardingsphere.transaction.core.TransactionType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -29,10 +34,23 @@ public class ShardingDemo {
         }
     }
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Transactional
+    @ShardingTransactionType(TransactionType.LOCAL)
+    public void insert() {
+        jdbcTemplate.execute("insert into a values (3, 4, 4)");
+
+        jdbcTemplate.execute("insert into a values (1, 4, 4)");
+
+    }
+
     public static void main(String[] args) throws SQLException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring" +
                 "-sharding.xml");
         ShardingDemo shardingDemo = context.getBean(ShardingDemo.class);
-        shardingDemo.getAll();
+
+        shardingDemo.insert();
     }
 }

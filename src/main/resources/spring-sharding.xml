@@ -17,10 +17,21 @@
     <sharding:inline-strategy id="dataSourceStrategy" sharding-column="a" algorithm-expression="dataSource$->{a % 2}" />
 
     <sharding:data-source id="shardingDataSource">
-        <sharding:sharding-rule data-source-names="dataSource0,dataSource1">
+        <sharding:sharding-rule data-source-names="dataSource0">
             <sharding:table-rules>
-                <sharding:table-rule logic-table="a" actual-data-nodes="dataSource$->{0..1}.a_$->{0..1}" database-strategy-ref="dataSourceStrategy" table-strategy-ref="orderTableStrategy" />
+                <sharding:table-rule logic-table="a" actual-data-nodes="dataSource0.a_$->{0..1}" table-strategy-ref="orderTableStrategy" />
             </sharding:table-rules>
         </sharding:sharding-rule>
     </sharding:data-source>
+
+    <!-- 开启自动扫描@ShardingTransactionType注解，使用Spring原生的AOP在类和方法上进行增强 -->
+    <sharding:tx-type-annotation-driven />
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="shardingDataSource" />
+    </bean>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="shardingDataSource" />
+    </bean>
+    <tx:annotation-driven />
 </beans>
