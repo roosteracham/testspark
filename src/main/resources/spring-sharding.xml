@@ -17,9 +17,9 @@
     <sharding:inline-strategy id="dataSourceStrategy" sharding-column="a" algorithm-expression="dataSource$->{a % 2}" />
 
     <sharding:data-source id="shardingDataSource">
-        <sharding:sharding-rule data-source-names="dataSource0">
+        <sharding:sharding-rule data-source-names="dataSource0,dataSource1">
             <sharding:table-rules>
-                <sharding:table-rule logic-table="a" actual-data-nodes="dataSource0.a_$->{0..1}" table-strategy-ref="orderTableStrategy" />
+                <sharding:table-rule logic-table="a" actual-data-nodes="dataSource$->{0..1}.a_$->{0..1}" database-strategy-ref="dataSourceStrategy" table-strategy-ref="orderTableStrategy" />
             </sharding:table-rules>
         </sharding:sharding-rule>
     </sharding:data-source>

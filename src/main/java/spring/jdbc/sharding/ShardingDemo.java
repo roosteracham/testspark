@@ -38,7 +38,7 @@ public class ShardingDemo {
     private JdbcTemplate jdbcTemplate;
 
     @Transactional
-    @ShardingTransactionType(TransactionType.LOCAL)
+    @ShardingTransactionType(TransactionType.XA)
     public void insert() {
         jdbcTemplate.execute("insert into a values (3, 4, 4)");
 
