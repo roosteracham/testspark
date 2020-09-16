@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sharding="http://shardingsphere.apache.org/schema/shardingsphere/sharding"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://shardingsphere.apache.org/schema/shardingsphere/sharding
+                        http://shardingsphere.apache.org/schema/shardingsphere/sharding/sharding.xsd ">
+
+    <context:component-scan base-package="spring.jdbc"/>
+    <import resource="spring-dao.xml"/>
+
+    <sharding:inline-strategy id="orderTableStrategy" sharding-column="a" algorithm-expression="a_$->{a % 2}" />
+
+    <sharding:data-source id="shardingDataSource">
+        <sharding:sharding-rule data-source-names="dataSource">
+            <sharding:table-rules>
+                <sharding:table-rule logic-table="a" actual-data-nodes="dataSource.a_$->{0..1}" table-strategy-ref="orderTableStrategy" />
+            </sharding:table-rules>
+        </sharding:sharding-rule>
+    </sharding:data-source>
+</beans>
