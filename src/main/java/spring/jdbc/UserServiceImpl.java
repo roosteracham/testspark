@@ -1,6 +1,7 @@
 package spring.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class UserServiceImpl implements IUserService {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UserServiceImpl(DataSource dataSource) {
+    public UserServiceImpl(@Qualifier("dataSource0") DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

@@ -24,7 +24,7 @@ public class TestDemo {
         Properties props = new Properties();
         DataSource dataSource = ShardingDataSourceFactory.createDataSource(map, config, props);
         Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("insert into a values(2, ?,?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into a values(3, ?,?)");
         preparedStatement.setInt(1, 1);
         preparedStatement.setString(2, "1");
         int update = preparedStatement.executeUpdate();
@@ -61,7 +61,7 @@ public class TestDemo {
         Map<String, DataSource> dataSourceMap =  new HashMap<>();
         ComboPooledDataSource dataSource1 = new ComboPooledDataSource();
         dataSource1.setDriverClass("com.mysql.jdbc.Driver");
-        dataSource1.setJdbcUrl("jdbc:mysql://localhost:3306/spring2");
+        dataSource1.setJdbcUrl("jdbc:mysql://192.168.150.129:3306/test?useUnicode=true&characterEncoding=utf8");
         dataSource1.setUser("root");
         dataSource1.setPassword("root123");
         dataSourceMap.put("spring2", dataSource1);

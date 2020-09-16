@@ -1,25 +1,26 @@
-package spring.jdbc;
+package spring.jdbc.sharding;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.apache.shardingsphere.api.hint.HintManager;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
 public class ShardingDemo {
 
-    @Autowired
-            @Qualifier("shardingDataSource")
+    @Resource(name = "shardingDataSource")
     DataSource dataSource;
 
     public void getAll() throws SQLException {
         Connection connection = dataSource.getConnection();
-        ResultSet resultSet = connection.prepareStatement("select * from a").executeQuery();
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from a");
+        ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             int a = resultSet.getInt("a");
             int b = resultSet.getInt("b");

@@ -1,6 +1,7 @@
 package spring.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ public class MyDataSourceTransactionManager extends DataSourceTransactionManager
     }
 
     @Autowired
-    public MyDataSourceTransactionManager(DataSource dataSource) {
+    public MyDataSourceTransactionManager(@Qualifier("dataSource0") DataSource dataSource) {
         super(dataSource);
     }
 }
