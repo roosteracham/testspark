@@ -9,15 +9,20 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class Test<K, V> {
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws InterruptedException {
+        int count = 0;
+        while (true) {
+            TimeUnit.SECONDS.sleep(5);
+            sendMsg(count++);
+        }
     }
 
     public static Producer<String, String> getKafkaProducer() {
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "had1:9092,had3:9092");
+        properties.put("bootstrap.servers", "localhost:9092");
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
@@ -27,12 +32,12 @@ public class Test<K, V> {
     /**
      * 发送消息
      */
-    public static void sendMsg() {
+    public static void sendMsg(int count) {
         Producer<String, String> producer = getKafkaProducer();
-        ProducerRecord<String, String> record = getStringRecord("love", "zsf", "mhl");
+        ProducerRecord<String, String> record = getStringRecord("love", "zsf", "mhl_" + count);
         try {
             RecordMetadata metadata = producer.send(record).get();
-            System.out.println(JSON.toJSONString(metadata));
+            System.out.println("sent to partition: " + metadata.partition());
         } catch (Exception e) {
             e.printStackTrace();
         }
