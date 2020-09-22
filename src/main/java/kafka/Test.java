@@ -19,7 +19,7 @@ public class Test<K, V> {
         Properties properties = new Properties();
         properties.put("bootstrap.servers", "had1:9092,had3:9092");
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        properties.put("valoe.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
         return producer;
     }

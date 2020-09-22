@@ -12,7 +12,7 @@ public class Test implements Watcher {
     static CountDownLatch latch = new CountDownLatch(1);
 
     public static void main(String[] args) throws Exception {
-        getConnWithSession();
+        testConn();
     }
 
     public static ZooKeeper getConn() throws Exception{

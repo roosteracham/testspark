@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ZKNodeOperate extends Test{
     public static void main(String[] args) throws Exception {
-        deleteZNode();
+        getAllChildren();
     }
 
     //删除节点
