@@ -8,4 +8,8 @@ public class Calculate {
     public int subtract(int a, int b) {
         return a - b;
     }
+
+    public String get() {
+        return null;
+    }
 }

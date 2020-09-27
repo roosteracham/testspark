@@ -6,9 +6,19 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
+import static org.powermock.modules.junit4.PowerMockRunner.*;
 
 import static org.junit.Assert.assertEquals;
 
+@PrepareForTest(Calculate.class)
+@RunWith(PowerMockRunner.class)
 public class CalculateTest {
     private static Calculate calculate = null;
 
@@ -35,7 +45,9 @@ public class CalculateTest {
 
     @Test
     public void add() throws Exception {
-        assertEquals(10, calculate.add(7, 3));
+        Calculate mock = mock(Calculate.class);
+        when(mock.get()).thenReturn("123");
+        System.out.println(mock.get());
     }
 
     @Test
