@@ -1,10 +1,14 @@
 package spark
 
 import org.apache.spark.{SparkConf, SparkContext}
+import org.springframework.beans.factory.xml.XmlBeanFactory
+import org.springframework.core.io.ClassPathResource
+import spring.父子继承.Sub
 
 object Test {
 
   def main(args: Array[String]): Unit = {
+//    System.setProperty("hadoop.home.dir", "D:\\hadoop-2.7.5\\bin")
     var conf = new SparkConf().setAppName("AppName")
       .setMaster("local")
     var sc = new SparkContext(conf)
@@ -22,6 +26,10 @@ object Test {
     var input = sc.parallelize(List(1,1,1,2,2,3,4))
     var a = input.map(x => x * x)
     println(a.collect().mkString(", "))
+    println()
+    val sub = new XmlBeanFactory(new ClassPathResource("spring2.xml")).getBean(classOf[Sub])
+    def method(x: Int) = sub.abc(x)
+    input.map(method).foreach(println)
   }
 
   private def testTop(sc: SparkContext) = {

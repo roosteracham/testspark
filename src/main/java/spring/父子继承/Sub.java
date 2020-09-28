@@ -15,6 +15,10 @@ public class Sub extends Base {
         this.b = b;
     }
 
+    public String abc(int v) {
+        return "abc-" + v;
+    }
+
     @Override
     public String toString() {
         return "Sub{" +

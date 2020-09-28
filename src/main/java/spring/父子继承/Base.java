@@ -1,6 +1,8 @@
 package spring.父子继承;
 
-public class Base {
+import java.io.Serializable;
+
+public class Base  {
 
     protected String a;
 
