@@ -59,23 +59,17 @@ public class UnSafeTest {
             }).start();
             new Thread(() -> {
                 swap(unsafe, false, offset);
+                System.out.println(Thread.currentThread().getName() + " : " + unSafeTest.flag);
             }).start();
         }
     }
 
-    /**
-     * cas 能保证原子性，但是存在ABA问题
-     * @param unsafe
-     * @param swapped
-     * @param offset
-     */
     private static void swap(Unsafe unsafe, boolean swapped, long offset) {
         int b = unSafeTest.flag;
-        System.out.println(Thread.currentThread().getName() + " : " + b);
         while (!unsafe.compareAndSwapInt(unSafeTest, offset, b, swapped ? 0 : 1)) {
             b = unSafeTest.flag;
         }
-        System.out.println(Thread.currentThread().getName() + " : " + b);
+        System.out.println(Thread.currentThread().getName() + " : " + unSafeTest.flag);
     }
 
     /**
