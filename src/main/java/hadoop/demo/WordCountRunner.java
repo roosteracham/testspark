@@ -14,7 +14,7 @@ import java.util.Iterator;
 
 public class WordCountRunner extends Configured implements Tool {
 
-    static class WordCounterReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+    public static class WordCounterReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
         @Override
         protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             Iterator<IntWritable> iterator = values.iterator();

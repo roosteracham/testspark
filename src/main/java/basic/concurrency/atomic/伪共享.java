@@ -4,6 +4,8 @@ import basic.Threads;
 
 /**
  * https://juejin.im/post/6844903841964507150
+ *
+ * https://www.jianshu.com/p/c3c108c3dcfd
  */
 public class 伪共享 {
     public static void main(String[] args) throws InterruptedException {
