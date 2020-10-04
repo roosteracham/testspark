@@ -1,9 +1,20 @@
 package spring.父子继承;
 
+import domain.User;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 
 public class Sub extends Base {
+
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     private String b;
 
@@ -16,7 +27,7 @@ public class Sub extends Base {
     }
 
     public String abc(int v) {
-        return "abc-" + v;
+        return user.getName() + "-" + v;
     }
 
     @Override

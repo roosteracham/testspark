@@ -12,5 +12,10 @@
 
     <bean id="sub" parent="base" class="spring.父子继承.Sub">
         <property name="a" value="bcd" />
+        <property name="user" ref="user" />
+    </bean>
+
+    <bean id="user" class="domain.User">
+        <property name="name" value="ass" />
     </bean>
 </beans>

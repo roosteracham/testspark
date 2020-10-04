@@ -22,13 +22,15 @@ object Test {
     var rdd = sc.textFile("1.txt")
     println(rdd.count())
   }
+
+  val sub = new XmlBeanFactory(new ClassPathResource("spring2.xml")).getBean(classOf[Sub])
+  def method(x: Int) = sub.abc(x)
+
   private def testParalleize(sc: SparkContext) = {
     var input = sc.parallelize(List(1,1,1,2,2,3,4))
     var a = input.map(x => x * x)
     println(a.collect().mkString(", "))
     println()
-    val sub = new XmlBeanFactory(new ClassPathResource("spring2.xml")).getBean(classOf[Sub])
-    def method(x: Int) = sub.abc(x)
     input.map(method).foreach(println)
   }
 
