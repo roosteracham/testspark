@@ -31,7 +31,7 @@ public class Test implements Watcher {
 
     //  建立连接
     public static void testConn() throws IOException, InterruptedException {
-        ZooKeeper conn = ZKUtil.getConn("had1:2181/zk-book", 5000, new Watcher() {
+        ZooKeeper conn = ZKUtil.getConn("8.131.65.50:2181/zk-book", 5000, new Watcher() {
             @Override
             public void process(WatchedEvent event) {
                 System.out.println("watcher event: " + event);

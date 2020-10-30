@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 public class Test {
 
-    static String connString = "had1:2181/zk-book";
+    static String connString = "8.131.65.50:2181";
     static int timeout = 5000;
     static Watcher watcher = new ZKNodeOperate();
 
@@ -26,7 +26,6 @@ public class Test {
             return CuratorFrameworkFactory.builder()
                     .connectString(connString)
                     .sessionTimeoutMs(timeout)
-                    .connectionTimeoutMs(timeout)
                     .retryPolicy(backoffRetry)
                     .build();
         } else {

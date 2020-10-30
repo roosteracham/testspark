@@ -62,8 +62,8 @@ public class DistributeLock {
                     }
                 }
             }).start();
-            latch.countDown();
         }
+        latch.countDown();
 
     }
 }
