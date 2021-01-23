@@ -6,6 +6,18 @@ import java.io.InputStream;
 public class ClassLoaderTest {
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+//        customClassLoader();
+        String a = "1";
+        ClassLoader loader = ClassLoaderTest.class.getClassLoader();
+        System.out.println(a.getClass().getClassLoader());
+        while (loader != null) {
+            System.out.println(loader);
+            loader = loader.getParent();
+        }
+    }
+
+    private static void customClassLoader() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
         ClassLoader myClassLoader = new ClassLoader() {
             @Override
             public Class<?> loadClass(String name) throws ClassNotFoundException {
@@ -28,6 +40,6 @@ public class ClassLoaderTest {
         Object instance = myClassLoader.loadClass("jvmstuff.classloader.ClassLoaderTest").newInstance();
         System.out.println(instance.getClass());
 
-        System.out.println(instance instanceof jvmstuff.classloader.ClassLoaderTest);
+        System.out.println(instance instanceof ClassLoaderTest);
     }
 }
