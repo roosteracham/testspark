@@ -2,7 +2,9 @@ package spring.父子继承;
 
 import domain.User;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+import spring.util.SpringUtil;
 
 public class Sub extends Base {
 
@@ -39,7 +41,10 @@ public class Sub extends Base {
     }
 
     public static void main(String[] args) {
-        Sub sub = new XmlBeanFactory(new ClassPathResource("spring2.xml")).getBean(Sub.class);
-        System.out.println(sub);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(("spring2" +
+                ".xml"));
+//        Sub sub = context.getBean(Sub.class);
+//        System.out.println(sub);
+        System.out.println(SpringUtil.getBean(Sub.class));
     }
 }
