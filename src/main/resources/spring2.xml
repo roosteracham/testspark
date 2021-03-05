@@ -19,6 +19,9 @@
         <property name="name" value="ass" />
     </bean>
 
+    <bean class="spring.CustomBeanPostProcessor">
+    </bean>
+
     <context:component-scan base-package="spring.util" />
 
 </beans>
