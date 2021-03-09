@@ -24,14 +24,12 @@ public class UserDaoProxy implements InvocationHandler {
         return interceptorList.intercept(invocation);
     }
 
-    public <T> T getProxy() {
-        return (T) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
-    }
-
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
         UserInterceptor interceptor = new UserInterceptor();
         IUserDao userDaoProxy = interceptor.plugin(userDao);
+        LogInterceptor logInterceptor = new LogInterceptor();
+        userDaoProxy = logInterceptor.plugin(userDaoProxy);
         System.out.println(userDaoProxy.getUser());
     }
 }
