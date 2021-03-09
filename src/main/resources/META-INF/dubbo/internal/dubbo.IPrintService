@@ -1,1 +1,2 @@
+wrapper=dubbo.impl.PrintServiceWrapper
 impl=dubbo.impl.PrintServiceImpl

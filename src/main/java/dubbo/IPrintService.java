@@ -3,7 +3,7 @@ package dubbo;
 
 import org.apache.dubbo.common.extension.SPI;
 
-@SPI("impl")
+@SPI("wrapper")
 public interface IPrintService {
     void printInfo();
 }

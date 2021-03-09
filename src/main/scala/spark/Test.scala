@@ -20,6 +20,7 @@ object Test {
 
   private def test1(sc: SparkContext) = {
     var rdd = sc.textFile("1.txt")
+    rdd.persist()
     println(rdd.count())
   }
 
