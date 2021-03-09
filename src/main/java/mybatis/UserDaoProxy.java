@@ -27,9 +27,11 @@ public class UserDaoProxy implements InvocationHandler {
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
         UserInterceptor interceptor = new UserInterceptor();
-        IUserDao userDaoProxy = interceptor.plugin(userDao);
         LogInterceptor logInterceptor = new LogInterceptor();
-        userDaoProxy = logInterceptor.plugin(userDaoProxy);
+        InterceptorChain chain = new InterceptorChain();
+        chain.addInterceptor(interceptor);
+        chain.addInterceptor(logInterceptor);
+        IUserDao userDaoProxy = chain.pluginAll(userDao);
         System.out.println(userDaoProxy.getUser());
     }
 }
