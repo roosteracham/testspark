@@ -20,7 +20,7 @@ import java.util.Map;
 public class User implements Externalizable {
     public static final long serializationVersionID = 1L;
     private String name;
-    private Double salary;
+    private double salary;
     private Integer age;
     private String country = "ZG";
 
