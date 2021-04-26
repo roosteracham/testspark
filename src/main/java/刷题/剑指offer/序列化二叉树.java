@@ -2,8 +2,10 @@ package 刷题.剑指offer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * 请实现两个函数，分别用来序列化和反序列化二叉树。
@@ -104,6 +106,50 @@ public class 序列化二叉树 { // Encodes a tree to a single string.
             curNode.left = getTN(index - 1, dataSplit);
         }
         return head;
+    }
+    static Node handle(Integer[] nums) {
+        Queue<Node> queue = new LinkedList<>();
+        Node root = new Node(nums[0]);
+        queue.add(root);
+
+        int j = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                Node remove = queue.remove();
+                Integer num = nums[j];
+                if (num != null) {
+                    Node node = new Node(num);
+                    remove.left = node;
+                    queue.add(node);
+                }
+                j++;
+                num = nums[j];
+                if (num != null) {
+                    Node node = new Node(num);
+                    remove.right = node;
+                    queue.add(node);
+                }
+                j++;
+            }
+        }
+        return root;
+    }
+
+    static class Node {
+        int value;
+        Node left;
+        Node right;
+
+        public Node(int value) {
+            this.value = value;
+        }
+
+        public Node(int value, Node left, Node right) {
+            this.value = value;
+            this.left = left;
+            this.right = right;
+        }
     }
 
     private TreeNode getTN(int index, String[] dataSplit) {
