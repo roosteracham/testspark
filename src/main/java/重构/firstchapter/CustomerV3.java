@@ -20,12 +20,18 @@ public class CustomerV3 {
 
         double totalAmount = 0;
         String res = this.name + " rent movie list:\n";
-
         for (Rental rantMovie : rantMovies) {
+            int rentPoint = 0;
             double thisAmount = rantMovie.getAmount();
             totalAmount += thisAmount;
+            rentPoint++;
+            if (rantMovie.getMovie().getPriceCode() == Movie.NEW_RELEASE &&
+                    rantMovie.getDays() > 1) {
+                rentPoint++;
+            }
             Movie movie = rantMovie.getMovie();
-            res += "movie: " + movie.getTitle() + " for " + rantMovie.getDays() + " days"
+            res += "movie: " + movie.getTitle() + " for " + rantMovie.getDays() + " days, " +
+                    "earn point: " + rentPoint
                     + "; price: " + thisAmount + "\n";
         }
         res += "total price to pay : " + totalAmount;
