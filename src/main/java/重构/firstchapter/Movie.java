@@ -29,4 +29,12 @@ public class Movie {
     public void setPriceCode(int priceCode) {
         this.priceCode = priceCode;
     }
+
+    public int totalPoint(int days) {
+        if (getPriceCode() == Movie.NEW_RELEASE &&
+        days > 1) {
+            return 2;
+        }
+        return 1;
+    }
 }

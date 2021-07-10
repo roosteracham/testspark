@@ -10,7 +10,7 @@ public class FirstChapterTest {
     @Test
     public void test1() {
         List<Rental> rentals = new ArrayList<>();
-        CustomerV3 c1 = new CustomerV3("c1", rentals);
+        CustomerV4 c1 = new CustomerV4("c1", rentals);
         Rental r1 = new Rental(new Movie("m1", 1), 2);
         rentals.add(r1);
         Rental r2 = new Rental(new Movie("m2", 2), 2);
