@@ -9,9 +9,28 @@ public class Movie {
 
     private int priceCode;
 
+    private Price price;
+
     public Movie(String title, int priceCode) {
         this.title = title;
         this.priceCode = priceCode;
+        setPrice(priceCode);
+    }
+
+    private void setPrice(int priceCode) {
+        switch (priceCode) {
+            case Movie.CHILD_RENT:
+                price = new ChildPrice();
+                break;
+            case Movie.REGULAR:
+                price = new RegularPrice();
+                break;
+            case Movie.NEW_RELEASE:
+                price = new NewReleasePrice();
+                break;
+            default:
+                throw new UnsupportedOperationException("no price object");
+        }
     }
 
     public String getTitle() {
@@ -26,15 +45,15 @@ public class Movie {
         return priceCode;
     }
 
+    public Price getPrice() {
+        return price;
+    }
+
     public void setPriceCode(int priceCode) {
         this.priceCode = priceCode;
     }
 
     public int totalPoint(int days) {
-        if (getPriceCode() == Movie.NEW_RELEASE &&
-        days > 1) {
-            return 2;
-        }
-        return 1;
+        return price.point(days);
     }
 }
